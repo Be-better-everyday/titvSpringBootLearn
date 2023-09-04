@@ -1,0 +1,4 @@
+@Repository : remark where is DAO, where connect to database
+@RequestBody : help us convert from JSON to POJO when we use method "PUT", "POST",...
+    When we use auto-increment for "Id", it will throw a exception if file JSON we receive from server
+have a "Id" is not "0" (if id is "int") or Id is not null (if id is "Integer")
