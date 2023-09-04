@@ -1,0 +1,2 @@
+*.class *.log *.tmp
+*.iml *.idea *.vscode
