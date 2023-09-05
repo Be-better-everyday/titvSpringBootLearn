@@ -1,0 +1,19 @@
+Instead of using StudentDAO and StudentImpl, we can use "JpaRepository" interface which help us create
+common method connecting to database
+
+Instead of using Service and Controller, we can use "Spring Data Rest" dependency to create common endpoint.
+To use this, change "@Repository" to "@RepositoryRestResource" (recommended, not required)
+It also helps us in pagination (Phân trang).
+
+In Repo file, we can customize endpoint, for example:
+@RepositoryRestResource(path="students")
+
+When we use "Spring Data Rest", we can parse some variable to endpoint after question mark (?). For example:
+_ http://localhost:8080/auto-api/students?page=3&size=1
+_ http://localhost:8080/auto-api/students?sort=firstName,asc
+
+We also can customize pagination in application.properties:
+#Config path Data REST
+_ spring.data.rest.base-path=/auto-api
+_ spring.data.web.pageable.default-page-size=2
+_ spring.data.web.pageable.max-page-size=10
