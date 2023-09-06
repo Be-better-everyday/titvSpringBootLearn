@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+// *** all is new in 8.4 ***
 @RepositoryRestResource(path="students")
 public interface StudentRepo extends JpaRepository<Student, Integer> {
     //query by firstName
