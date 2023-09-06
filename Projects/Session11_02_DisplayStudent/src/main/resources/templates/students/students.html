@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -8,6 +8,7 @@
 <body>
     <h3>Student List</h3>
     <hr/>
+    <a th:href="@{students/create}" class="btn btn-success btn-sm mb-4">Thêm mới</a>
     <table class="table table-bordered table-striped">
         <thead class="table-info">
             <td>Id</td>

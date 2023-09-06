@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách sinh viên</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h3>Quan ly sinh vien</h3>
+    <hr/>
+    <form action="#" th:action="@{/students/save}" th:object="${student}" method="post">
+        <!--    *Note* The information in "action" attribute will be filled -->
+        <!--by value in "th:action" when its content is "#"                 -->
+        <!--    *Note* "student" is Object which create in Controller and this form-->
+        <!--will set properties for this Object through "*{property_name}", asterisk (*)-->
+        <!--(dấu sao) will mark it is information of corresponding field of "student" Object-->
+
+        <input type="text" th:field="*{lastName}" placeholder="Nhap ho va ten dem"
+                class="form-control w-25 mb-4"
+            />
+        <!-- *Note* "*{lastName}" marks this <input> field will contain "lastName"-->
+        <!-- property of "th:object" in this form-->
+        <input type="text" th:field="*{firstName}" placeholder="Nhap ten"
+               class="form-control w-25 mb-4"
+        />
+        <input type="text" th:field="*{email}" placeholder="Nhap email"
+               class="form-control w-25 mb-4"
+        />
+        <button type="submit" class="btn btn-success col-2">Save</button>
+
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</body>
+</html>
