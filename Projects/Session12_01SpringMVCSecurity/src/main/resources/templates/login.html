@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Form</title>
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">-->
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!--    <link rel="stylesheet" th:href="@{/static/css/styleLogin.css}">-->
+<!--    <link rel="stylesheet" href="../static/css/styleLogin.css">-->
+</head>
+<body>
+    <h3>He thong quan ly sinh vien</h3>
+    <h4>Trang chu</h4>
+    <hr/>
+
+    <div class="sidenav">
+        <div class="login-main-text">
+            <h2>Application<br> Login Page</h2>
+            <p>Login or register from here to access.</p>
+        </div>
+    </div>
+    <div class="main">
+        <div class="col-md-6 col-sm-12">
+            <div class="login-form">
+                <form action="#" th:action="@{/authenticateTheUser}" method="post">
+<!-- *Note* we need "th:action" to submit username and password to Endpoint "/authenticateTheUser"-->
+
+                    <div class="form-group">
+                        <label>User Name</label>
+                        <input type="text" name="username" class="form-control" placeholder="User Name">
+<!--    *Note* we need set "name=\"username\"" for this <input> to help
+Endpoint "/authenticateTheUser knows it.
+-->
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="text" name="password" class="form-control" placeholder="Password">
+<!--    *Note* we need set "name=\"password\"" and "type" is "password" for this <input> to help
+Endpoint "/authenticateTheUser knows it.-->
+                    </div>
+
+                    <div th:if="${param.error}">
+<!--    *Note* "param" is a Parameter which is returned when error happen-->
+                        <span style="color: red">Login Fail!</span>
+                    </div>
+                    <button type="submit" class="btn btn-black">Login</button>
+                    <button type="submit" class="btn btn-secondary">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+<!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>-->
+</body>
+</html>

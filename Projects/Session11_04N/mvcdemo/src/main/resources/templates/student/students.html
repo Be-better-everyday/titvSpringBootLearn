@@ -9,7 +9,7 @@
 <div class="container">
     <h3>Danh sách sinh viên</h3>
     <hr/>
-    <a th:href="@{/students2/create}" class="btn btn-success btn-sm mb-4">Thêm mới</a>
+    <a th:href="@{/students/create}" class="btn btn-success btn-sm mb-4">Thêm mới</a>
     <!--    *Note* We use "@" before a Link variable ** -->
 
     <table class="table table-bordered table-striped">
@@ -27,7 +27,6 @@
                     <td>
                         Email
                     </td>
-                    <td>Process</td>
                 </tr>
         </thead>
         <tbody>
@@ -36,11 +35,6 @@
                     <td th:text="${student.lastName}" />
                     <td th:text="${student.firstName}" />
                     <td th:text="${student.email}" />
-                    <td>
-                        <a th:href="@{/students2/update(id=${student.id})}" class="btn btn-info">Edit</a>
-                        <a th:href="@{/students2/delete(id=${student.id})}" class="btn btn-danger"
-                        onclick="return confirm('are you sure want to delete this Student?')">Delete</a>
-                    </td>
                 </tr>
         <!--    *Note* "students" is a List which was transmitted from Controller-->
         <!--    we use "th:each" to loop through the List and show all the information-->

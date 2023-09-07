@@ -46,7 +46,7 @@ public class StudentController {
 
     @PostMapping("/save")
     public String save(@ModelAttribute("student")Student student){
-        studentService.updateStudent(student);
+        studentService.addStudent(student);
         return "redirect:/students2/list";
     }
     /*  *Note*__When we use "redirect:", we return endpoint from "@RequestMapping()"
@@ -54,17 +54,4 @@ public class StudentController {
     *   __ @ModelAttribute("student") received Object which is created in POST
     * form and convert it to your object Type you want
     * */
-
-    @GetMapping("/update")
-    public String update(@RequestParam("id") Integer id, Model model){
-        Student student = studentService.getStudentById(id);
-        model.addAttribute("student", student);
-        return "/student/students-form";
-    }
-
-    @GetMapping("/delete")
-    public String delete(@RequestParam("id") Integer id, Model model){
-        studentService.deleteStudentById(id);
-        return "redirect:/students2/list";
-    }
 }

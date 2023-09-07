@@ -9,15 +9,12 @@
 <div class="container">
     <h3>Quan ly sinh vien</h3>
     <hr/>
-    <form action="#" th:action="@{/students2/save}" th:object="${student}" method="post">
+    <form action="#" th:action="@{/students/save}" th:object="${student}" method="post">
         <!--    *Note* The information in "action" attribute will be filled -->
         <!--by value in "th:action" when its content is "#"                 -->
         <!--    *Note* "student" is Object which create in Controller and this form-->
         <!--will set properties for this Object through "*{property_name}", asterisk (*)-->
         <!--(dấu sao) will mark it is information of corresponding field of "student" Object-->
-        <input type="text" th:field="*{id}" placeholder="Nhap ho va ten dem"
-               class="form-control w-25 mb-4" style="display: none"
-        />
 
         <input type="text" th:field="*{lastName}" placeholder="Nhap ho va ten dem"
                 class="form-control w-25 mb-4"
