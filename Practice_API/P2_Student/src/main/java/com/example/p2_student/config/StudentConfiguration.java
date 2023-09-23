@@ -23,54 +23,47 @@ import java.util.List;
 public class StudentConfiguration {
 //    @Bean
 //    public InMemoryUserDetailsManager inMemoryUserDetailsManager(){
-//        UserDetails dao = User.withUsername("dao")
-//                .password("{noop}123456")
-//                .roles("student")
+//        UserDetails dao = User.withUsername("dao1")
+//                .password("{noop}dao1234")
+//                .roles("STUDENT")
 //                .build();
-//        UserDetails hoa = User.withUsername("hoa")
-//                .password("{noop}hoa123")
-//                .roles("teacher")
+//        UserDetails hoa = User.withUsername("hoa1")
+//                .password("{noop}hoa1234")
+//                .roles("TEACHER")
 //                .build();
-//        UserDetails admin = User.withUsername("admin")
-//                .password("{noop}admin123")
-//                .roles("admin")
+//        UserDetails admin = User.withUsername("nam1")
+//                .password("{noop}nam1234")
+//                .roles("ADMIN")
 //                .build();
 //
 //        return new InMemoryUserDetailsManager(dao, hoa, admin);
 //    }
+
     @Bean
     @Autowired
-    JdbcUserDetailsManager jdbcUserDetailsManager(DataSource data){
-        JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager(data);
+    public JdbcUserDetailsManager jdbcUserDetailsManager(DataSource data){
+        JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager();
+        userDetailsManager.setDataSource(data);
 
-        UserDetails userDetails = userDetailsManager.loadUserByUsername("nam");
-        System.out.println(userDetails.getPassword());
-        Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
-
-        String authorizationRole = null;
-        for (GrantedAuthority authority : authorities) {
-            authorizationRole = authority.getAuthority();
-            break;
-        }
-        System.out.println(authorizationRole);
-
-        boolean userExists = userDetailsManager.userExists("nam");
-        System.out.println("Is account \"nam\" existed: " + userExists);
         return userDetailsManager;
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(
-                config -> config
-                        .requestMatchers(HttpMethod.GET,"/api/students/**").hasAnyRole("ADMIN", "TEACHER", "STUDENT")
-                        .requestMatchers( HttpMethod.POST,"/api/students/**").hasAnyRole("ADMIN", "TEACHER")
-                        .requestMatchers( HttpMethod.PUT,"/api/students/**").hasAnyRole("ADMIN", "TEACHER")
-                        .requestMatchers(HttpMethod.DELETE,"/api/students/**").hasAnyRole("ADMIN")
-//                        .anyRequest().permitAll()
+                configurer->configurer
+//                        .requestMatchers(HttpMethod.GET,"/api/students/**").hasAnyRole("ADMIN", "TEACHER", "STUDENT")
+//                        .requestMatchers( HttpMethod.POST,"/api/students/**").hasAnyRole("ADMIN", "TEACHER")
+//                        .requestMatchers( HttpMethod.PUT,"/api/students/**").hasAnyRole("ADMIN", "TEACHER")
+//                        .requestMatchers("/**").hasAnyRole("ADMIN")
 //                        .anyRequest().authenticated()
+                        .requestMatchers(HttpMethod.GET, "api/students").hasAnyRole("TEACHER", "MANAGER", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "api/students/**").hasAnyRole("TEACHER", "MANAGER", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, "api/students").hasAnyRole("MANAGER", "ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "api/students").hasAnyRole("MANAGER", "ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "api/students/**").hasRole("ADMIN")
         );
-//        http.httpBasic(Customizer.withDefaults());
+        http.httpBasic(Customizer.withDefaults());
         http.csrf(csrf->csrf.disable());
         return http.build();
     }
