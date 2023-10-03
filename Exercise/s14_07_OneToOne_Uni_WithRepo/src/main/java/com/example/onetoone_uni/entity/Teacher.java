@@ -35,7 +35,7 @@ public class Teacher {
     /*  Default fetch is LAZY   */
     @ManyToMany(cascade = {
             CascadeType.DETACH, CascadeType.MERGE,
-            CascadeType.PERSIST, CascadeType.REFRESH
+//            CascadeType.PERSIST, CascadeType.REFRESH
     })
     @JoinTable(name = "student_teacher",
             joinColumns = @JoinColumn(name = "teacher_id"),

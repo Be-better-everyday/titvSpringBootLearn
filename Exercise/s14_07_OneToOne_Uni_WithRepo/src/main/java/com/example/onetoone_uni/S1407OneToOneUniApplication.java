@@ -42,8 +42,34 @@ public class S1407OneToOneUniApplication {
 
 //            saveOtherTeacher();
 
-            addStudentsToTeacher3();
+//            addStudentsToTeacher3();
+//            updateTeacher3();
+
+            addStudent3ToTeacher2();
         };
+
+    }
+
+    private void addStudent3ToTeacher2() {
+        Student student3 = studentRepo.findById(1).orElse(null);
+        System.out.println(student3);
+        Teacher teacher2 = teacherRepo.findTeacherByIdJoinFetch(2);
+        System.out.println(teacher2.getStudents());
+
+    }
+
+    private void updateTeacher3() {
+        Student student3 = Student.builder()
+                .firstName("Repo")
+                .lastName("nh")
+                .email("Repo@gmail.com")
+                .gpa(2.7)
+                .build();
+
+        Teacher teacher3 = teacherRepo.findTeacherByIdJoinFetch(9);
+        teacher3.addStudent(student3);
+        teacherRepo.save(teacher3);
+        System.out.println(teacher3.getStudents());
     }
 
     private void addStudentsToTeacher3() {
