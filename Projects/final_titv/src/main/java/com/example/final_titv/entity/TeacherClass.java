@@ -25,7 +25,32 @@ public class TeacherClass {
             CascadeType.DETACH, CascadeType.MERGE,
             CascadeType.PERSIST, CascadeType.REFRESH
     })
-    @JoinColumn(name = "school_id")
-    @JoinColumn(name = "class_name")
+//    @JoinColumn(name = "school_id")
+//    @JoinColumn(name = "class_name")
+    @JoinColumn(name = "class_id")
     private TClass tClass;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    public TClass gettClass() {
+        return tClass;
+    }
+
+    public void settClass(TClass tClass) {
+        this.tClass = tClass;
+    }
 }

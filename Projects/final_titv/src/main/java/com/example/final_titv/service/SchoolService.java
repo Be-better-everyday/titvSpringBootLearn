@@ -1,25 +1,16 @@
 package com.example.final_titv.service;
 
-import com.example.final_titv.entity.School;
-import com.example.final_titv.repository.SchoolRepository;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
+import com.example.final_titv.dto.SchoolRequest;
+import com.example.final_titv.dto.SchoolResponse;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-@Service
-@AllArgsConstructor
-public class SchoolService {
-    private SchoolRepository schoolRepository;
+public interface SchoolService {
+    public SchoolResponse save(SchoolRequest schoolRequest);
+    public SchoolResponse getSchoolById(Integer id);
+    public Page<SchoolResponse> getPageStudentByCondition(Pageable pageable, String name, Double cutoffScore);
+    public SchoolResponse updateSchoolById(Integer id, SchoolRequest schoolRequest);
+    public SchoolResponse deleteById(Integer id);
 
-    public School save(School school){
-        return schoolRepository.save(school);
-    }
-    public void deleteById(Integer id){
-        School school = schoolRepository.findById(id).orElse(null);
-        if(school == null) throw new RuntimeException("School is not found!");
-        schoolRepository.delete(school);
-    }
-
-//    public School update(Integer id, School school){
-//
-//    }
+    SchoolResponse getSchoolWithClassById(Integer id);
 }

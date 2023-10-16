@@ -1,44 +1,57 @@
 package com.example.final_titv.controller;
 
-import com.example.final_titv.entity.School;
-import com.example.final_titv.repository.SchoolRepository;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.final_titv.dto.SchoolRequest;
+import com.example.final_titv.dto.SchoolResponse;
+
+import com.example.final_titv.service.SchoolService;
+import com.fasterxml.jackson.annotation.JsonView;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/school")
+@RequestMapping("/schools")
+
 public class SchoolController {
-    private SchoolRepository schoolRepository;
+    private SchoolService schoolService;
+
+    @PostMapping
+    public SchoolResponse saveSchool
+            (@Valid @RequestBody SchoolRequest schoolRequest) {
+        System.out.println(schoolRequest);
+        return schoolService.save(schoolRequest);
+    }
 
     @GetMapping("/{id}")
-    public ResponseEntity<School> getSchoolById(@PathVariable Integer id) throws JsonProcessingException {
-        School referenceById = schoolRepository.findById(id).orElse(null);
-        System.out.println("_______________");
-//        ObjectMapper mapper = new ObjectMapper();
-//        String json = mapper.writeValueAsString(referenceById);
-//        System.out.println(json);
-        return ResponseEntity.status(HttpStatus.FOUND).body(referenceById);
+    public ResponseEntity<SchoolResponse> getSchool(@PathVariable Integer id){
+        return ResponseEntity.ok(schoolService.getSchoolById(id));
     }
 
-    @GetMapping("/notNull/{id}")
-    public School getSchoolByIdNotNull(@PathVariable Integer id) {
-        School referenceById = schoolRepository.findById(id).orElse(null);
-        System.out.println("_______________");
-        return referenceById;
+    @GetMapping("/withClass/{id}")
+    public ResponseEntity<SchoolResponse> getSchoolWithClass(@PathVariable Integer id){
+        return ResponseEntity.ok(schoolService.getSchoolWithClassById(id));
     }
-    @GetMapping("/eager/{id}")
-    public ResponseEntity<School> getSchoolByIdEager(@PathVariable Integer id) throws JsonProcessingException {
 
-        School referenceById = schoolRepository.findByIdJoinFetchTClassSet(id);
-        System.out.println("_______________");
-//        ObjectMapper mapper = new ObjectMapper();
-//        String json = mapper.writeValueAsString(referenceById);
-//        System.out.println(json);
-        return ResponseEntity.status(HttpStatus.FOUND).body(referenceById);
+    @GetMapping
+    public  Page<SchoolResponse> getPageStudentByCondition(
+            Pageable pageable,
+            @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "cutoffScore", required = false) Double cutoffScore
+    ){
+        return schoolService.getPageStudentByCondition(pageable, name, cutoffScore);
+    }
+
+    @PutMapping("/{id}")
+    public SchoolResponse updateStudentById(@PathVariable Integer id, @RequestBody SchoolRequest schoolRequest){
+        return schoolService.updateSchoolById(id, schoolRequest);
+    }
+
+    @DeleteMapping("/{id}")
+    public SchoolResponse deleteSchool(@PathVariable Integer id){
+        return schoolService.deleteById(id);
     }
 }

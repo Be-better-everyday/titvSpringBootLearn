@@ -18,34 +18,34 @@ import javax.sql.DataSource;
 @Configuration
 public class UserConfiguration {
 
-    @Bean
-    @Autowired
+//    @Bean
+//    @Autowired
     /*dataSource is auto-created because we have been
     config datasource in application.properties
     * */
-    public JdbcUserDetailsManager jdbcUserDetailsManager(DataSource dataSource){
-        /*  this method create account from dataSource*/
-        JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager(dataSource);
-//        userDetailsManager.setCreateUserSql(dataSource);
-        return userDetailsManager;
-    }
-
-//    @Bean
-//    public InMemoryUserDetailsManager inMemoryUserDetailsManager(){
-//        UserDetails tung = User.withUsername("tung")
-//                .password("{noop}123456")
-//                .roles("TEACHER")
-//                .build();
-//        UserDetails quoc = User.withUsername("quoc")
-//                .password("{noop}quoc123456")
-//                .roles("MANAGER")
-//                .build();
-//        UserDetails kiet = User.withUsername("kiet")
-//                .password("{noop}kiet123")
-//                .roles("ADMIN")
-//                .build();
-//        return new InMemoryUserDetailsManager(tung, quoc, kiet);
+//    public JdbcUserDetailsManager jdbcUserDetailsManager(DataSource dataSource){
+//        /*  this method create account from dataSource*/
+//        JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager(dataSource);
+////        userDetailsManager.setCreateUserSql(dataSource);
+//        return userDetailsManager;
 //    }
+
+    @Bean
+    public InMemoryUserDetailsManager inMemoryUserDetailsManager(){
+        UserDetails tung = User.withUsername("tung")
+                .password("{noop}123456")
+                .roles("TEACHER")
+                .build();
+        UserDetails quoc = User.withUsername("quoc")
+                .password("{noop}quoc123456")
+                .roles("MANAGER")
+                .build();
+        UserDetails kiet = User.withUsername("kiet")
+                .password("{noop}kiet123")
+                .roles("ADMIN")
+                .build();
+        return new InMemoryUserDetailsManager(tung, quoc, kiet);
+    }
 
     /* --------------- new in 9.4 ---------------- */
     @Bean

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -16,30 +17,30 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Builder
-@ToString(exclude = "tClassSet")
+//@ToString(exclude = "tClassSet")
+@ToString(callSuper = true)
 @Table(name = "schools")
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class School {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class School extends BaseEntity{
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Integer id;
     private String name;
     @Column(columnDefinition = "TEXT")
     private String address;
     @Column(name = "phone_number")
     private String phoneNumber;
+    @Getter
     @OneToMany(fetch = FetchType.LAZY,
             mappedBy = "school", cascade = {
             CascadeType.DETACH, CascadeType.MERGE,
             CascadeType.PERSIST, CascadeType.REFRESH
     })
-//    @JsonIgnore
-//    @JsonManagedReference
-//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
+    @ToString.Exclude
     private Set<TClass> tClassSet;
+    @Column(name = "cutoff_score")
+    private Double cutoffScore; //admission cutoff score
     public void addTClass(TClass tClass){
         try {
             if(tClassSet == null){
@@ -56,12 +57,7 @@ public class School {
         return Objects.hash(id, name, address, phoneNumber);
     }
 
-    public static void main(String[] args) throws JsonProcessingException {
-        School school = School.builder()
-                .name("FTU").address("Lang pagoda Street").phoneNumber("000000FTU")
-                .build();
-        ObjectMapper mapper = new ObjectMapper();
-        String json = mapper.writeValueAsString(school);
-        System.out.println(json);
+    public void settClassSet(Set<TClass> tClassSet) {
+        this.tClassSet = tClassSet;
     }
 }

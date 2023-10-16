@@ -3,7 +3,7 @@ package vn.titv.spring.demo.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "students")
+@Table(name = "student2s")
 public class Student {
     // fields
     @Id

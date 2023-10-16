@@ -2,3 +2,5 @@
 *.iml *.idea *.vscode
 .git .gitignore
 /SourceCodeTitv
+/Projects/final_titv
+/CheckLibrary
